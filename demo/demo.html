@@ -29,7 +29,11 @@
 
     <script src="../src/SimplestModal.js"></script>
     <script>
-    SimplestModal('.simplest-modal');
+    SimplestModal({
+        modalSelector: '.simplest-modal',
+        openClass: 'simplest-modal--open',
+        buttonAttribute: 'simplest-modal'
+    });
     </script>
 </body>
 </html>

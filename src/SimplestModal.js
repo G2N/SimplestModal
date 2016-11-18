@@ -13,11 +13,23 @@
 })(function () {
 	"use strict";
 
-    function SimplestModal(modalSelector) {
+    function SimplestModal(params) {
+		var options,
+			defaults = {
+				modalSelector: '.simplest-modal',
+				openClass: 'simplest-modal--open',
+				buttonAttribute: 'simplest-modal'
+			};
 
-        if(typeof modalSelector !== 'string') {
-            return;
-        }
+		function extend(params) {
+			var options = {};
+
+			for (var key in defaults) {
+				options[key] = params.hasOwnProperty(key) ? params[key] : defaults[key];
+			}
+
+			return options;
+		}
 
 		/**
 		 * Reads an event to determine the corresponding modal
@@ -25,7 +37,7 @@
 		 * @return {HTMLElement}     The modal
 		 */
 		function getModalFromEvent(evt) {
-			var selector = evt.target.getAttribute('simplest-modal');
+			var selector = evt.target.getAttribute(options.buttonAttribute);
 
 			return selector ? document.getElementById(selector) : evt.target;
 		}
@@ -50,7 +62,7 @@
 			if(!modal || !modal.classList[method]) {
 				return false;
 			}
-			return modal.classList[method]('simplest-modal--open');
+			return modal.classList[method](options.openClass);
         }
 
 		/**
@@ -71,11 +83,18 @@
 			return toggle(evt, 'remove');
 		}
 
+		if(typeof params !== 'string') {
+			options = extend(params);
+		}
+		else {
+			options = defaults;
+			options.modalSelector = params;
+		}
 
 		/**
 		 * Attach event listeners to all our modals
 		 */
-        Array.prototype.map.call(document.querySelectorAll(modalSelector), function(modal) {
+        Array.prototype.map.call(document.querySelectorAll(options.modalSelector), function(modal) {
             modal.addEventListener('SimplestModal:open', open);
             modal.addEventListener('SimplestModal:close', close);
 
@@ -90,7 +109,7 @@
 		/**
 		 * Attach event listeners to all our buttons
 		 */
-        Array.prototype.map.call(document.querySelectorAll('[simplest-modal]'), function(el) {
+        Array.prototype.map.call(document.querySelectorAll('['+options.buttonAttribute+']'), function(el) {
             el.addEventListener('click', toggle);
         });
     }

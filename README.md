@@ -16,12 +16,25 @@ SimplestModal('.simplest-modal');
 </script>
 ```
 
+You can also pass an options object as a parameter to customize the attribute
+and class names.
+```js
+SimplestModal({
+    // The selector for the modals
+    modalSelector: '.simplest-modal',
+    // The classname used for showing the modals
+    openClass: 'simplest-modal--open',
+    // The attribute name of the buttins
+    buttonAttribute: 'simplest-modal'
+});
+```
+
 Each modal will listen to open and close events so you can programmatically
 show or hide it.
 ```js
-var modal = document.getElementById('my-modal')
-modal.dispatchEvent(new Event('SimplestModal:close'))
-modal.dispatchEvent(new Event('SimplestModal:close'))
+var modal = document.getElementById('my-modal');
+modal.dispatchEvent(new Event('SimplestModal:close'));
+modal.dispatchEvent(new Event('SimplestModal:close'));
 ```
 
 That's it really.

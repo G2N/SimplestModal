@@ -1,0 +1,59 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+body {
+    background: slategrey;
+    font-family: helvetica, arial, sans-serif;
+}
+
+.demo {
+    margin: 20px auto;
+    background: #fff;
+    padding: 1em;
+    border-radius: 3px;
+    color: #444;
+    max-width: 40em;
+}
+
+.simplest-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.75);
+
+    visibility: hidden;
+    opacity:0;
+    transition: all 300ms;
+}
+.simplest-modal--open {
+    visibility: visible;
+    opacity:1;
+}
+
+.simplest-modal__content {
+    width: 90vw;
+    height: 90vw;
+    overflow-y: auto;
+    position: absolute;
+    background: #fff;
+    padding: 1em;
+
+    top: 5vw;
+    left: 5vw;
+
+    transform: scale(0.8);
+    opacity:0;
+    transition: all 300ms;
+    visibility: hidden;
+}
+
+.simplest-modal--open .simplest-modal__content {
+    visibility: visible;
+    transform: scale(1);
+    opacity:1;
+}

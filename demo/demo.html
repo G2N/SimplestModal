@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - SimplestModal.js</title>
+    <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+
+    <main class="demo">
+        <header class="demo__title">
+            <h1>SimpleModal demo</h1>
+        </header>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id suscipit,
+            laudantium deleniti natus. Vel, sapiente doloribus fuga eum delectus
+            unde. Voluptatum cum molestias voluptate laborum quos doloribus
+            architecto, illum commodi!</p>
+        <button simplest-modal="my-modal">Open modal</button>
+    </main>
+    <aside class="simplest-modal" id="my-modal">
+        <div class="simplest-modal__content">
+            Hi there !
+
+            <button simplest-modal="my-modal">Close me</button>
+        </div>
+    </aside>
+
+    <script src="../src/SimplestModal.js"></script>
+    <script>
+    SimplestModal('.simplest-modal');
+    </script>
+</body>
+</html>

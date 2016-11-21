@@ -19,7 +19,8 @@
 				modalSelector: '.simplest-modal',
 				openClass: 'simplest-modal--open',
 				buttonAttribute: 'simplest-modal'
-			};
+			},
+			modals = [];
 
 		function extend(params) {
 			var options = {};
@@ -62,6 +63,12 @@
 			if(!modal || !modal.classList[method]) {
 				return false;
 			}
+
+			// If we're not closing, then we should close everything else
+			if(method !== 'remove') {
+				closeOtherModals(modal);
+			}
+
 			return modal.classList[method](options.openClass);
         }
 
@@ -81,6 +88,18 @@
 		 */
 		function close(evt) {
 			return toggle(evt, 'remove');
+		}
+
+		/**
+		 * closes all modals, except one
+		 * @param  {Node} modal The modal we need to ignore
+		 */
+		function closeOtherModals(modal) {
+			for(var key in modals) {
+				if(modal !== modals[key]) {
+					modals[key].dispatchEvent(new Event('SimplestModal:close'));
+				}
+			}
 		}
 
 		if(typeof params !== 'string') {
@@ -104,6 +123,9 @@
 					close(evt);
 				}
 			});
+
+			// Store in memory so we can access it later
+			modals.push(modal);
         });
 
 		/**

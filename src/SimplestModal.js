@@ -38,9 +38,9 @@
 		 * @return {HTMLElement}     The modal
 		 */
 		function getModalFromEvent(evt) {
-			var selector = evt.target.getAttribute(options.buttonAttribute);
+			var selector = evt.currentTarget.getAttribute(options.buttonAttribute);
 
-			return selector ? document.getElementById(selector) : evt.target;
+			return selector ? document.getElementById(selector) : evt.currentTarget;
 		}
 
 		/**
@@ -119,7 +119,7 @@
 
 			// Close the modal if the background is clicked
             modal.addEventListener('click', function(evt) {
-				if(evt.target === modal) {
+				if(evt.currentTarget === modal) {
 					close(evt);
 				}
 			});

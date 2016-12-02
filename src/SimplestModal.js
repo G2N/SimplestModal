@@ -119,7 +119,7 @@
 
 			// Close the modal if the background is clicked
             modal.addEventListener('click', function(evt) {
-				if(evt.currentTarget === modal) {
+				if(evt.target === modal) {
 					close(evt);
 				}
 			});

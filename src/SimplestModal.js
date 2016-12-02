@@ -46,30 +46,30 @@
 		/**
 		 * Show or hide a modal (based on an Event)
 		 * @param  {Objet} evt    The original event.
-		 * @param  {String} method The name of the classList API method to call
-		 *                         - 'add' to show the modal
-		 *                         - 'remove' to hidden
-		 *                         - 'toggle' default
+		 * @param  {Boolean} force the force param to pass to classList.toggle
 		 * @return {Boolean}      False if something went horrible wrong
 		 */
-        function toggle(evt, method) {
-			var modal;
+        function toggle(evt, force) {
+			var modal,
+				evtName;
 			evt.preventDefault();
 
-			method = method || 'toggle';
 			modal = getModalFromEvent(evt);
 
-			// We may not really have a modal or the method might not exist
-			if(!modal || !modal.classList[method]) {
+			// We may not really have a modal
+			if(!modal) {
 				return false;
 			}
 
 			// If we're not closing, then we should close everything else
-			if(method !== 'remove') {
+			if(force) {
 				closeOtherModals(modal);
 			}
 
-			return modal.classList[method](options.openClass);
+			evtName = modal.classList.toggle(options.openClass, force) ? 'SimplestModal:afteropen' : 'SimplestModal:afterclose';
+			modal.dispatchEvent(new Event(evtName));
+
+			return true;
         }
 
 		/**
@@ -78,7 +78,7 @@
 		 * @return {Boolean}     False if something went horribly wrong
 		 */
 		function open(evt) {
-			return toggle(evt, 'add');
+			return toggle(evt, true);
 		}
 
 		/**
@@ -87,7 +87,7 @@
 		 * @return {Boolean}     False if something went horribly wrong
 		 */
 		function close(evt) {
-			return toggle(evt, 'remove');
+			return toggle(evt, false);
 		}
 
 		/**
